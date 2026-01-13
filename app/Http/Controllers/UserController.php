@@ -68,6 +68,22 @@ class UserController extends Controller
             "password" => "required|string|min:8"
         ]);
         if (!$validate->fails()) {
+            $credencials = $request->only("email", "password");
+            if (!auth()->attempt($credencials)) {
+                return response()->json([
+                    "status" => false,
+                    "message" => "Invalid Login Credencials"
+                ], 401);
+            }
+            $user = auth()->user();
+            $token = $user->createToken($user->name)->plainTextToken;
+            return response()->json([
+                "status" => true,
+                "message" => "User Logged In Successfully",
+                "token" => $token,
+                "Token Type" => "Bearer",
+                "user" => $user,
+            ], 200);
         } else {
             return response()->json([
                 "status" => false,
