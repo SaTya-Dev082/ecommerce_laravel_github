@@ -118,7 +118,7 @@ class ProductController extends Controller
     // Search data of products
     public function search($text)
     {
-        $data = Product::where('name', 'LIKE', "%{$text}%")
+        $product = Product::where('name', 'LIKE', "%{$text}%")
             ->orWhere('description', 'LIKE', "%{$text}%")
             ->orWhere('price', 'LIKE', "%{$text}%")
             ->get();
@@ -126,7 +126,7 @@ class ProductController extends Controller
         return response()->json([
             "status" => true,
             "message" => "Search Results Retrieved",
-            "products" => $data
+            "products" => $product
         ], 200);
     }
     // Sort product by price
