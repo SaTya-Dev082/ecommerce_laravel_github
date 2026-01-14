@@ -77,6 +77,28 @@ class ProductController extends Controller
             "products" => $favorites
         ], 200);
     }
+    // Toggle favorite status
+    public function toggleFavorite($product_id)
+    {
+        $product_id = Product::find($product_id);
+        if (!$product_id) {
+            return response()->json([
+                "status" => false,
+                "message" => "Product Not Found"
+            ], 404);
+        }
+        if ($product_id->status === 'favorite') {
+            $product_id->status = 'unfavorite';
+        } else {
+            $product_id->status = 'favorite';
+        }
+        $product_id->save();
+        return response()->json([
+            "status" => true,
+            "message" => "Product Status Updated Successfully",
+            "product" => $product_id
+        ], 200);
+    }
     // Check Stock product
     public function checkStock()
     {

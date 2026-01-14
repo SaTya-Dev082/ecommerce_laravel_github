@@ -21,6 +21,7 @@ Route::get('/category', [CategoryController::class, 'index']);
 Route::get('/category/{id}/products', [CategoryController::class, 'getProductsByCategoryId']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/product/favorites', [ProductController::class, 'favoriteProducts']);
+Route::get('/product/toggle/{product_id}/favorite', [ProductController::class, 'toggleFavorite']);
 Route::get('/product/stock', [ProductController::class, 'checkStock']);
 Route::get('/product/search/{text}', [ProductController::class, 'search']);
 Route::get('/product/price/asc', [ProductController::class, 'sortByPriceAsc']);
