@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a59389decc3f6069f384f7a80bf3f0f9",
+    "content-hash": "4ced37060bb6a2fd26b3a86d98d79015",
     "packages": [
         {
             "name": "brick/math",
@@ -507,6 +507,91 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "erlandmuchasaj/laravel-file-uploader",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erlandmuchasaj/laravel-file-uploader.git",
+                "reference": "342ad8b1555df74e9d719f818acc3ef2ad6582aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erlandmuchasaj/laravel-file-uploader/zipball/342ad8b1555df74e9d719f818acc3ef2ad6582aa",
+                "reference": "342ad8b1555df74e9d719f818acc3ef2ad6582aa",
+                "shasum": ""
+            },
+            "require": {
+                "ext-exif": "*",
+                "ext-fileinfo": "*",
+                "ext-json": "*",
+                "illuminate/contracts": "^8|^9|^10|^11|^12",
+                "illuminate/filesystem": "^8|^9|^10|^11|^12",
+                "illuminate/http": "^8|^9|^10|^11|^12",
+                "illuminate/support": "^8|^9|^10|^11|^12",
+                "nesbot/carbon": "^2|^3",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ErlandMuchasaj\\LaravelFileUploader\\FileUploaderServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ErlandMuchasaj\\LaravelFileUploader\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erland Muchasaj",
+                    "email": "erland.muchasaj@gmail.com",
+                    "homepage": "https://erlandmuchasaj.tech/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple package to help you easily upload files to your laravel project.",
+            "homepage": "https://github.com/erlandmuchasaj/laravel-file-uploader",
+            "keywords": [
+                "cms",
+                "emcms",
+                "file",
+                "images",
+                "laravel",
+                "library",
+                "media",
+                "package",
+                "upload"
+            ],
+            "support": {
+                "email": "erland.muchasaj@gmail.com",
+                "irc": "irc://irc.freenode.org/composer",
+                "issues": "https://github.com/erlandmuchasaj/laravel-file-uploader/issues",
+                "source": "https://github.com/erlandmuchasaj/laravel-file-uploader"
+            },
+            "funding": [
+                {
+                    "url": "https://ko-fi.com/erlandmuchasaj",
+                    "type": "Ko-fi"
+                },
+                {
+                    "url": "https://paypal.me/emcms?country.x=AL&locale.x=en_US",
+                    "type": "PayPal"
+                },
+                {
+                    "url": "https://www.patreon.com/erlandmuchasaj",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2025-02-26T17:05:13+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -1332,6 +1417,69 @@
                 "source": "https://github.com/laravel/prompts/tree/v0.3.8"
             },
             "time": "2025-11-21T20:52:52+00:00"
+        },
+        {
+            "name": "laravel/sanctum",
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/sanctum.git",
+                "reference": "fd447754d2d3f56950d53b930128af2e3b617de9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/sanctum/zipball/fd447754d2d3f56950d53b930128af2e3b617de9",
+                "reference": "fd447754d2d3f56950d53b930128af2e3b617de9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/console": "^11.0|^12.0",
+                "illuminate/contracts": "^11.0|^12.0",
+                "illuminate/database": "^11.0|^12.0",
+                "illuminate/support": "^11.0|^12.0",
+                "php": "^8.2",
+                "symfony/console": "^7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.6",
+                "orchestra/testbench": "^9.15|^10.8",
+                "phpstan/phpstan": "^1.10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Sanctum\\SanctumServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Sanctum\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.",
+            "keywords": [
+                "auth",
+                "laravel",
+                "sanctum"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/sanctum/issues",
+                "source": "https://github.com/laravel/sanctum"
+            },
+            "time": "2026-01-06T23:11:51+00:00"
         },
         {
             "name": "laravel/serializable-closure",
