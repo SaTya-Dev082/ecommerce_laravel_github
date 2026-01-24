@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
     // Get all categories
     public function index()
     {
-        $categories = Category::orderBy("id", "DESC")->get();
+        $categories = Category::orderBy("id", "ASC")->get();
         return response()->json([
             "status" => true,
             "message" => "All Categories Retrieved",
@@ -29,11 +31,7 @@ class CategoryController extends Controller
             ], 404);
         }
         $products = $category->products()->orderBy("id", "DESC")->get();
-        return response()->json([
-            "status" => true,
-            "message" => "Products Retrieved by Category",
-            "products" => $products
-        ], 200);
+        return response()->json(["status" => true, "products" => $products], 200);
     }
     // Create new category
     public function store(Request $request)
@@ -42,10 +40,10 @@ class CategoryController extends Controller
             "name" => "required|string|unique:categories,name",
             "description" => "nullable|string",
         ]);
-        if($request->hasFile("image_url")){
-            $imagePath = $request->file("image_url")->store("categories","public");
-            $imageUrl = "/storage/".$imagePath;
-        }else{
+        if ($request->hasFile("image_url")) {
+            $imagePath = $request->file("image_url")->store("categories", "public");
+            $imageUrl = "/storage/" . $imagePath;
+        } else {
             $imageUrl = null;
         }
 
@@ -73,18 +71,43 @@ class CategoryController extends Controller
             ], 404);
         }
 
-        $request->validate([
-            "name" => "sometimes|required|string|unique:categories,name," . $id,
-            "description" => "nullable|string",
+        $validate = Validator::make($request->all(), [
+            "name" => "sometimes|string|unique:categories,name," . $category->id,
         ]);
+        if ($validate->fails()) {
+            return response()->json([
+                "status" => false,
+                "message" => "Validation Error",
+                "errors" => $validate->errors()
+            ], 422);
+        } else {
+            $data = $request->only([
+                "name",
+                "description",
+            ]);
 
-        $category->update($request->only(["name", "description"]));
+            if ($request->hasFile("image_url")) {
 
-        return response()->json([
-            "status" => true,
-            "message" => "Category Updated Successfully",
-            "category" => $category
-        ], 200);
+                // delete old image
+                if ($category->image_url) {
+                    $oldPath = public_path($category->image_url);
+                    if (File::exists($oldPath)) {
+                        File::delete($oldPath);
+                    }
+                }
+
+                // upload new image
+                $imagePath = $request->file("image_url")->store("categories", "public");
+                $data["image_url"] = "/storage/" . $imagePath;
+            }
+
+            $category->update($data);
+            return response()->json([
+                "status" => true,
+                "message" => "Category Updated Successfully",
+                "category" => $category
+            ], 200);
+        }
     }
     // Delete category
     public function destroy($id)

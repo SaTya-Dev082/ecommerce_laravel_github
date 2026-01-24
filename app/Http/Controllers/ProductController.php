@@ -118,7 +118,7 @@ class ProductController extends Controller
     // Search data of products
     public function search($text)
     {
-        $product = Product::where('name', 'LIKE', "%{$text}%")
+        $product = Product::orderBy('name', 'ASC')->where('name', 'LIKE', "%{$text}%")
             ->orWhere('description', 'LIKE', "%{$text}%")
             ->orWhere('price', 'LIKE', "%{$text}%")
             ->get();

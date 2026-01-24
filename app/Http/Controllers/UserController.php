@@ -7,6 +7,7 @@ use App\Models\User;
 use ErlandMuchasaj\LaravelFileUploader\FileUploader;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -73,7 +74,7 @@ class UserController extends Controller
             if (!auth()->attempt($credencials)) {
                 return response()->json([
                     "status" => false,
-                    "message" => "Invalid Login Credencials"
+                    "message" => "Invalid Credencials"
                 ], 401);
             }
             $user = auth()->user();
@@ -171,4 +172,6 @@ class UserController extends Controller
             }
         }
     }
+
+    
 }
