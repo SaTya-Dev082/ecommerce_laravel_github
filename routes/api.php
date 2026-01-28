@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TodoPasswordController;
+use App\Http\Controllers\CartController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -43,9 +44,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logoutall', [UserController::class, 'logoutAll']);
         Route::get('/profile', [UserController::class, 'profile']);
         Route::post('/update-profile', [UserController::class, 'updateProfile']);
+        Route::get('/cart', [UserController::class, 'getCart']);
         // Forgot Password Routes
-        // Route::post('/forgot-password', [UserController::class, 'forgotPassword']);
-        // Route::post('/reset-password', [UserController::class, 'resetPassword']);
+        Route::post('/forgot-password', [UserController::class, 'forgotPassword']);
+        Route::post('/reset-password', [UserController::class, 'resetPassword']);
     });
 
     Route::prefix('/category')->group(function () {
@@ -60,5 +62,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/toggle/{product_id}/favorite', [ProductController::class, 'toggleFavorite']);
         Route::post('/update/{id}', [ProductController::class, 'update']);
         Route::delete('/delete/{id}', [ProductController::class, 'destroy']);
+    });
+
+    // Cart Routes
+    Route::prefix('/cart')->group(function () {
+        Route::get('/', [CartController::class, 'index']);
+        Route::get('/show', [CartController::class, 'show']);
+        Route::post('/', [CartController::class, 'store']);
     });
 });

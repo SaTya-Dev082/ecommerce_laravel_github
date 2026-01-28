@@ -34,8 +34,8 @@ class UserController extends Controller
         ]);
         if (!$validate->fails()) {
             if ($request->hasFile('avatar')) {
-                $response = FileUploader::store($request->file('avatar'), ["disk" => "public"]);
-                $avatarPath = "/storage/" . $response['path'];
+                $avatarPath = $request->file("avatar")->store("users", "public");
+                $avatarPath = "/storage/" . $avatarPath;
             } else {
                 $avatarPath = null;
             }
@@ -144,8 +144,8 @@ class UserController extends Controller
                 if ($request->hasFile('avatar')) {
                     $oldImage = substr($user->avatar, 9);
                     Storage::disk("public")->delete($oldImage);
-                    $response = FileUploader::store($request->file('avatar'), ["disk" => "public"]);
-                    $avatar = "/storage/" . $response["path"];
+                    $avatarPath = $request->file("avatar")->store("users", "public");
+                    $avatar = "/storage/" . $avatarPath;
                     $user->avatar = $avatar;
                 }
                 if ($request->has('name')) {
@@ -173,5 +173,15 @@ class UserController extends Controller
         }
     }
 
-    
+    /// Get cart of user
+    public function getCart()
+    {
+        $user = auth()->user();
+        $cart = $user->cart;
+        return response()->json([
+            "status" => true,
+            "message" => "User Cart Retrieved Successfully",
+            "cart" => $cart
+        ], 200);
+    }
 }
