@@ -9,10 +9,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TodoPasswordController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartItemController;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
 
 // User Routes
 Route::get('/user', [UserController::class, 'index']);
@@ -66,8 +64,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Cart Routes
     Route::prefix('/cart')->group(function () {
-        Route::get('/', [CartController::class, 'index']);
-        Route::get('/show', [CartController::class, 'show']);
+        Route::get('/', [CartController::class, 'getActiveCart']);
         Route::post('/', [CartController::class, 'store']);
+    });
+
+    // CartItems Route
+    Route::prefix('/cart-item')->group(function () {
+        Route::get('/', [CartItemController::class, 'index']);
+        Route::post('/', [CartItemController::class, 'addToCart']);
     });
 });

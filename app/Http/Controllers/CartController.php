@@ -2,37 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 
 class CartController extends Controller
 {
-    public function index()
+    // Get user's active cart
+    public function getActiveCart(Request $request)
     {
-        $cart = auth()->user()->cart;
+        $userId = auth()->id();
+        $cart = Cart::where('user_id', $userId)->with('cartItems')->get()->first();
+        if (!$cart) {
+            return response()->json([
+                'status' => false,
+                'message' => 'No active cart found'
+            ], 404);
+        }
         return response()->json([
+            'status' => true,
             'cart' => $cart
-        ], 200);
+        ]);
     }
-
-    public function show(){
-        $cart=Cart::orderBy('id','desc')->with('user')->get();
-        return response()->json([
-            'cart' => $cart
-        ], 200);
-    }
-
     public function store(Request $request)
     {
-        $user_id = $request->user()->id;
-
+        $user_id = auth()->user()->id;
         $cart = Cart::create([
-            'user_id' => $user_id,
-        ], 201);
-        return response()->json([
-            'message' => 'Items added to cart successfully',
-            'cart' => $cart,
+            'user_id' => $user_id
         ]);
+        return response()->json([
+            'status' => true,
+            'message' => 'Cart created successfully',
+            'cart' => $cart
+        ], 201);
     }
 }
